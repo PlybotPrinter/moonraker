@@ -52,10 +52,9 @@ Cmnd_Alias REBOOT = /sbin/shutdown -r now, /bin/systemctl "reboot"
 Cmnd_Alias SHUTDOWN = /sbin/shutdown now, /sbin/shutdown -h now, /bin/systemctl "poweroff"
 Cmnd_Alias APT = /usr/bin/apt-get
 Cmnd_Alias SYSTEMCTL = /bin/systemctl
+Cmnd_Alias WPACOPY = /usr/local/sbin/wpacopy
 
-  
-
-%GROUPNAME ALL=(ALL) NOPASSWD: REBOOT, SHUTDOWN, APT, SYSTEMCTL
+%GROUPNAME ALL=(ALL) NOPASSWD: REBOOT, SHUTDOWN, APT, SYSTEMCTL, WPACOPY
 
 #EOF
  
