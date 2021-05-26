@@ -42,7 +42,7 @@ if TYPE_CHECKING:
     from tornado.httpserver import HTTPServer
     from moonraker import Server
     from confighelper import ConfigHelper
-    from components.file_manager import FileManager
+    from components.file_manager.file_manager import FileManager
     import components.authorization
     MessageDelgate = Optional[tornado.httputil.HTTPMessageDelegate]
     AuthComp = Optional[components.authorization.Authorization]

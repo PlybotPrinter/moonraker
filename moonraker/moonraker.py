@@ -40,10 +40,10 @@ from typing import (
     TypeVar,
 )
 if TYPE_CHECKING:
-    from websockets import WebRequest, WebSocket, Subscribable
+    from websockets import WebRequest, Subscribable
     from components.data_store import DataStore
     from components.klippy_apis import KlippyAPI
-    from components.file_manager import FileManager
+    from components.file_manager.file_manager import FileManager
     FlexCallback = Callable[..., Optional[Coroutine]]
     _T = TypeVar("_T")
 
