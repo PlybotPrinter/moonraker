@@ -11,10 +11,12 @@ import os
 import sys
 import subprocess
 import asyncio
+import hashlib
 from queue import SimpleQueue as Queue
 
 # Annotation imports
 from typing import (
+    List,
     Optional,
     ClassVar,
     Tuple,
@@ -122,3 +124,33 @@ def setup_logging(log_file: str,
             queue, stdout_hdlr)
     listener.start()
     return listener, file_hdlr
+
+def hash_directory(dir_path: str,
+                   ignore_exts: List[str],
+                   ignore_dirs: List[str]
+                   ) -> str:
+    checksum = hashlib.sha1()
+    if not os.path.exists(dir_path):
+        return ""
+    for dpath, dnames, fnames in os.walk(dir_path):
+        valid_dirs: List[str] = []
+        for dname in dnames:
+            if dname[0] == '.' or dname in ignore_dirs:
+                continue
+            valid_dirs.append(dname)
+        dnames[:] = valid_dirs
+        for fname in fnames:
+            ext = os.path.splitext(fname)[-1].lower()
+            if fname[0] == '.' or ext in ignore_exts:
+                continue
+            fpath = os.path.join(dpath, fname)
+            try:
+                with open(fpath, 'rb') as f:
+                    while 1:
+                        buf = f.read(4096)
+                        if not buf:
+                            break
+                        checksum.update(buf)
+            except Exception:
+                pass
+    return checksum.hexdigest()
